@@ -12,6 +12,8 @@ module.exports = {
       '0.gravatar.com',
       '1.gravatar.com',
       '2.gravatar.com',
+      process.env.DOMAIN_NAME,
+      'sabage-matome.com',
       'secure.gravatar.com',
     ],
   },

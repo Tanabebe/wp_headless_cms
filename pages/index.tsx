@@ -9,7 +9,10 @@ import { getAllPostsForHome } from '../lib/api'
 import { CMS_NAME } from '../lib/constants'
 
 export default function Index({ allPosts: { edges }, preview }) {
-  const heroPost = edges[0]?.node
+  // edges　= 全投稿記事
+  // 最新記事のデータ
+  const latestArticlePost = edges[0]?.node
+  // 上記以降の記事データ
   const morePosts = edges.slice(1)
 
   return (
@@ -19,14 +22,15 @@ export default function Index({ allPosts: { edges }, preview }) {
       </Head>
       <Container>
         <Intro />
-        {heroPost && (
+        {/* 最新記事データがあれば表示（多分表示されないことない） */}
+        {latestArticlePost && (
           <HeroPost
-            title={heroPost.title}
-            coverImage={heroPost.featuredImage}
-            date={heroPost.date}
-            author={heroPost.author}
-            slug={heroPost.slug}
-            excerpt={heroPost.excerpt}
+            title={latestArticlePost.title}
+            coverImage={latestArticlePost.featuredImage}
+            date={latestArticlePost.date}
+            author={latestArticlePost.author}
+            slug={latestArticlePost.slug}
+            excerpt={latestArticlePost.excerpt}
           />
         )}
         {morePosts.length > 0 && <MoreStories posts={morePosts} />}

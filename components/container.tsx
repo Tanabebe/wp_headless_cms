@@ -1,3 +1,10 @@
+import { css } from '@emotion/react'
+const containerStyled = css`
+  max-width: 1244px;
+  margin: 0 auto;
+  padding-left: 25px;
+  padding-right: 25px;
+`
 export default function Container({ children }) {
-  return <div className="container mx-auto px-5">{children}</div>
+  return <div css={containerStyled}>{children}</div>
 }
