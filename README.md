@@ -1,8 +1,8 @@
 # Headless CMS のフロント
 
 ## 開発
-git 
-```
+
+```bash
 yarn install
 yarn dev
 ```
