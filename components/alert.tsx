@@ -2,6 +2,30 @@ import Container from './container'
 import cn from 'classnames'
 import { EXAMPLE_PATH } from '../lib/constants'
 import BasicMenu from './basic-menu'
+import IBasicMenu from '../interface/i-basic-menu-model'
+import { url } from 'inspector'
+
+const hoge: IBasicMenu = {
+  menuItems: [
+    {
+      title: 'Home',
+      subMenuItems: [
+        {
+          menuTitle: 'sub1',
+          linkUrl: "https://google.com"
+        },
+        {
+          menuTitle: 'sub2',
+          linkUrl: "https://google.com"
+        }
+      ]
+    },
+    {
+      title: 'Menu',
+      subMenuItems: []
+    }
+  ],
+}
 
 export default function Alert({ preview }) {
   return (
@@ -26,7 +50,7 @@ export default function Alert({ preview }) {
             </>
           ) : (
             <>
-              <BasicMenu />
+              <BasicMenu {...hoge}/>
             </>
           )}
         </div>

@@ -3,7 +3,8 @@ import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { css } from '@emotion/react'
-import MenuModel from '../model/basic-menu-model'
+import IBasicMenu from '../interface/i-basic-menu-model'
+import Box from '@mui/material/Box';
 
 const basicMenuStyled = css`
   display: flex;
@@ -13,7 +14,7 @@ const basicMenuStyled = css`
 
 // 渡すもの、tile、中身のオブジェクトを渡す
 // MenuModel：メニューとして表示したいオブジェクトの実体
-export default function BasicMenu(menuItems: MenuModel) {
+export default function BasicMenu({menuItems}) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -23,30 +24,47 @@ export default function BasicMenu(menuItems: MenuModel) {
     setAnchorEl(null)
   }
 
+  console.log(menuItems);
+
+  menuItems.map(v => {
+      console.log(v.title)
+      v.subMenuItems.map(sv => {
+        console.log(sv)
+      })
+  })
+
   return (
-    <div css={basicMenuStyled}>
-      <Button
-        id='basic-button'
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup='true'
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        Dashboard
-      </Button>
-      <Menu
-        id='basic-menu'
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
-    </div>
+      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        {menuItems.map(v =>
+          <div css={basicMenuStyled}>
+            <Button
+                  id='basic-button'
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup='true'
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                >
+            {v.title}
+            </Button>
+            {v.subMenuItems.length > 1 ? (
+                  <Menu
+                    id='basic-menu'
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                      'aria-labelledby': 'basic-button',
+                    }}
+                  >
+                    {v.subMenuItems.map(sub =>
+                      <MenuItem onClick={handleClose}>{sub.menuTitle}</MenuItem>
+                    )}
+                  </Menu>
+              ) : (
+              <></>
+            )}
+          </div>
+        )}
+      </Box>
   )
 }
